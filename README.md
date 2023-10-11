@@ -1,20 +1,19 @@
-Moving Things with JavaScript
----
+# Moving Things with JavaScript
 
-## Objectives
+## Learning Goals
 
 1. Explain how to update an element's position on the page
 2. Explain how to move an element in response to a browser event
 3. Practice moving elements on the page
 
-## Problem Statement
+## Introduction
 
 It's mesmerizing to think about how video games work. They will responded to your whims
 through a set of designated controls and interactions. It can pull you into its story by
 giving you controls to interact within, and sometimes shape the virtual environments.
 
-_Programming means that you can create such a world for other people._ It'll take some 
-time learning and practicing programming before you can build a game like 
+_Programming means that you can create such a world for other people._ It'll take some
+time learning and practicing programming before you can build a game like
 [Braid](http://braid-game.com/) or even [Don't Look Back](http://terrycavanaghgames.com/dontlookback/),
 for instance, but you can start with small steps. We're going to show you how to get started with moving elements with JavaScript.
 
@@ -24,17 +23,16 @@ for instance, but you can start with small steps. We're going to show you how to
 
 1. Click the "OPEN IDE" button
 
-
 Open up `index.html`, open the dev tools and take a look at the variable `dodger`:
 
-``` javascript
-var dodger = document.getElementById('dodger')
+```javascript
+var dodger = document.getElementById("dodger");
 ```
 
 Experiment with changing the color of dodger with this code:
 
-``` javascript
-dodger.style.backgroundColor = "#000000"
+```javascript
+dodger.style.backgroundColor = "#000000";
 ```
 
 Did the object disappear? That's because the color was changed to "#000000", which is
@@ -42,8 +40,8 @@ another way of setting the color to be "black", so it blends in with the backgro
 
 Now let's change it to something more visible:
 
-``` javascript
-dodger.style.backgroundColor = '#ff5bab'
+```javascript
+dodger.style.backgroundColor = "#ff5bab";
 ```
 
 Now it should be pinky magenta-ish!
@@ -56,9 +54,9 @@ We can also change an element's position on the page.
 
 First, let's read out the element's coordinates — we'll read these as if the bottom left of the black box were at coordinate (0, 0).
 
-``` javascript
-dodger.style.left // "180px"
-dodger.style.bottom // "0px"
+```javascript
+dodger.style.left; // "180px"
+dodger.style.bottom; // "0px"
 ```
 
 The dodger's bottom left edge is currently at the coordinates (180, 0). Keep in mind that
@@ -66,16 +64,16 @@ these coordinates are relative to the black box.
 
 Now let's try moving the element up.
 
-``` javascript
-dodger.style.bottom = '100px'
+```javascript
+dodger.style.bottom = "100px";
 ```
 
 ![up 100px](https://curriculum-content.s3.amazonaws.com/skills-based-js/pink_dodger_bottom_100.png)
 
 Even though we're setting _numeric_ coordinates, we need to move the dodger by assigning it a different string. Let's set it back to its default position:
 
-``` javascript
-dodger.style.bottom = '0px'
+```javascript
+dodger.style.bottom = "0px";
 ```
 
 ## Explain How to Move an Element in Response to a Browser Event
@@ -86,10 +84,10 @@ If we want to move the dodger to the left we have to figure what the left arrow
 key's numeric value is. We could look it up, but since we're programmers, we're going to
 explore!
 
-``` javascript
-document.addEventListener('keydown', function(e) {
-  console.log(e.which)
-})
+```javascript
+document.addEventListener("keydown", function (e) {
+  console.log(e.which);
+});
 ```
 
 Enter the above into the console. If you click on the window (where the dodger is rendered)
@@ -102,15 +100,15 @@ press the left arrow key, you should see in the console:
 We now know that we need to look for `37` to trigger a move to the left. Let's start moving
 left then:
 
-``` javascript
-document.addEventListener('keydown', function(e) {
+```javascript
+document.addEventListener("keydown", function (e) {
   if (e.which === 37) {
-    var leftNumbers = dodger.style.left.replace('px', '')
-    var left = parseInt(leftNumbers, 10)
+    var leftNumbers = dodger.style.left.replace("px", "");
+    var left = parseInt(leftNumbers, 10);
 
-    dodger.style.left = `${left - 1}px`
+    dodger.style.left = `${left - 1}px`;
   }
-})
+});
 ```
 
 If the left arrow key is pressed, the dodger moves 1 pixel to the left. Otherwise, if anything else is pressed, nothing happens.
@@ -124,19 +122,19 @@ to prevent it from going past the left edge of the black screen.
 
 Now would be a good time to break the dodger's movement out into a separate function. Let's refresh the page and code with a blank slate and grab the dodger again.
 
-``` javascript
-var dodger = document.getElementById('dodger')
+```javascript
+var dodger = document.getElementById("dodger");
 ```
 
 Work on this function:
 
-``` javascript
+```javascript
 function moveDodgerLeft() {
-  var leftNumbers = dodger.style.left.replace('px', '')
-  var left = parseInt(leftNumbers, 10)
+  var leftNumbers = dodger.style.left.replace("px", "");
+  var left = parseInt(leftNumbers, 10);
 
   if (left > 0) {
-    dodger.style.left = `${left - 1}px`
+    dodger.style.left = `${left - 1}px`;
   }
 }
 ```
@@ -145,12 +143,12 @@ We're doing essentially the same as above, but we first ensure that the dodger's
 
 Let's wire this up
 
-``` javascript
-document.addEventListener('keydown', function(e) {
+```javascript
+document.addEventListener("keydown", function (e) {
   if (e.which === 37) {
-    moveDodgerLeft()
+    moveDodgerLeft();
   }
-})
+});
 ```
 
 Now try again to move the dodger past the left edge. It shouldn't fall out of view now!
